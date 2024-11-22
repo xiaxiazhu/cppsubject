@@ -22,32 +22,26 @@ int main() {
     
     cin>>n;
     
-    vector<int> nArray,resultArray;
+    vector<int> nArray;
     
     for (int i =0; i<n; i++) {
         int x;
         cin>>x;
         nArray.push_back(x);
     }
-    while (nArray.size()>0) {
-        
-        // 选择最小值
-        int tempMinIndex=0;
 
-        for (int j = 0 ; j<nArray.size(); j++) {
-            if (nArray[tempMinIndex]> nArray[j]) {
-                tempMinIndex =j;
+    // nArray  3 2 1 5 4
+    for (int a=0; a<n; a++) {
+        for (int b=0; b<n-1; b++) {
+            if (nArray[b]>nArray[b+1]) {
+                swap(nArray[b], nArray[b+1]);
             }
         }
-
-        //返回从小排大的序列result
-        cout<<nArray[tempMinIndex]<<" ";
-        
-        //erase element
-        nArray.erase(nArray.begin()+tempMinIndex);
-        
     }
     
+    for (int k = 0 ; k < nArray.size(); k++) {
+        cout<< nArray[k]<<" ";
+    }
     
     return 0;
 }
