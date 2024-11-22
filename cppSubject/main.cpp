@@ -14,30 +14,40 @@ using namespace std;
 
 
 
+
 int main() {
     
-    // n个人 ； m出圈；m<=n<=100;
-    int n,m;
+    // n个整数 ;
+    int n;
     
-    cin>>n>>m;
-    vector<int> basicArray;
+    cin>>n;
+    
+    vector<int> nArray,resultArray;
+    
+    for (int i =0; i<n; i++) {
+        int x;
+        cin>>x;
+        nArray.push_back(x);
+    }
+    while (nArray.size()>0) {
+        
+        // 选择最小值
+        int tempMinIndex=0;
 
-    // 初始化数组 10 3
-    for (int i=1; i<=n; i++) {
-        basicArray.push_back(i);
+        for (int j = 0 ; j<nArray.size(); j++) {
+            if (nArray[tempMinIndex]> nArray[j]) {
+                tempMinIndex =j;
+            }
+        }
+
+        //返回从小排大的序列result
+        cout<<nArray[tempMinIndex]<<" ";
+        
+        //erase element
+        nArray.erase(nArray.begin()+tempMinIndex);
+        
     }
     
-    int currentIndex = 0;
-
-    while (basicArray.size()>0) {
-        
-        currentIndex = (currentIndex + m - 1) % basicArray.size();
-        
-        cout<<basicArray[currentIndex]<<" ";
-        
-        basicArray.erase(basicArray.begin()+currentIndex);
-        
-    }
     
     return 0;
 }
