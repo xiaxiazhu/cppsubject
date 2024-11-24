@@ -15,53 +15,34 @@ using namespace std;
 
 int main() {
     
-    // n个整数 ;
-    int n;
+    int decimalNum;
+    int r;
     
-    cin>>n;
+    cin >> decimalNum >>r;
     
-    vector<int> nArray;
+    bool isNegetive = false;
     
-    for (int i =0; i<n; i++) {
-        int x;
-        cin>>x;
-        nArray.push_back(x);
+    if (decimalNum<0) {
+        isNegetive=true;
+        decimalNum = -decimalNum;
     }
     
-    // 删除偶数
-    int nIndex = 0;
+    const char dic[]= "0123456789ABCDEFG";
+
+    int temp=0;
+    string result = "";
     
-    while (nArray.size()>nIndex) {
-        
-        if (nArray[nIndex]%2==0 ) {
-            //偶数
-            nArray.erase(nArray.begin()+nIndex);
-        }else{
-            //奇数
-            nIndex++;
-        }
+    
+    while (decimalNum >0) {
+        temp = decimalNum%r;
+        result += dic[temp];
+        decimalNum = decimalNum/r;
     }
     
+    reverse(result.begin(),result.end());
     
-    // nArray  3 2 1 5 4
-    for (int a=0; a<nArray.size(); a++) {
-        for (int b=0; b<nArray.size()-1; b++) {
-            if (nArray[b]>nArray[b+1]) {
-                swap(nArray[b], nArray[b+1]);
-            }
-        }
-    }
-    
-    bool lastNum = false;
-    for (int k = 0 ; k < nArray.size(); k++) {
-        if (k == nArray.size()-1) {
-            lastNum=true;
-        }else{
-            lastNum=false;
-        }
-        
-        cout<< nArray[k]<<( lastNum ? " ":",");
-    }
+    string t = isNegetive ? "-" :"" ;
+    cout<<t<< result;
     
     return 0;
 }
