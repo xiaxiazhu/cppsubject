@@ -10,39 +10,42 @@
 #include <vector>
 #include <algorithm>
 #include <cmath>
+#include <climits>
 using namespace std;
 
 
-int main() {
-    
-    int decimalNum;
-    int r;
-    
-    cin >> decimalNum >>r;
-    
-    bool isNegetive = false;
-    
-    if (decimalNum<0) {
-        isNegetive=true;
-        decimalNum = -decimalNum;
-    }
-    
-    const char dic[]= "0123456789ABCDEFG";
 
-    int temp=0;
-    string result = "";
+int main() {
+        
+//    cout << "int 类型的最大值: " << INT_MAX << endl;
+//    cout << "long int 类型的最大值: " << LONG_MAX << endl;
+//    cout << "long long int 类型的最大值: " << LLONG_MAX << endl;
+    int n = 0;
+    cin>>n;
     
+    vector<int> faibonacciList;
     
-    while (decimalNum >0) {
-        temp = decimalNum%r;
-        result += dic[temp];
-        decimalNum = decimalNum/r;
+    // init
+    faibonacciList.push_back(0);
+    faibonacciList.push_back(1);
+    
+    for (int i = 2; i<=n; i++) {
+
+        int fnext = faibonacciList[i-1]%INT_MAX +faibonacciList[i-2]%INT_MAX;
+        
+        long int overflowValue = INT_MAX;
+        
+        if (INT_MAX-faibonacciList[i-1]<faibonacciList[i-2]){//两数相加的溢出判断
+            overflowValue =static_cast<long int>(faibonacciList[i-1])+static_cast<long int>(faibonacciList[i-2]);
+            fnext = overflowValue%INT_MAX;
+        }
+        
+        // fill i
+        faibonacciList.push_back(fnext);
+        
     }
     
-    reverse(result.begin(),result.end());
-    
-    string t = isNegetive ? "-" :"" ;
-    cout<<t<< result;
+    cout<<faibonacciList[n];
     
     return 0;
 }
