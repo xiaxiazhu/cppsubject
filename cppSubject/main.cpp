@@ -16,42 +16,31 @@
 using namespace std;
 
 int main() {
-
-    int n = 0;
-    cin>>n;
+    int n,x;
     
-    vector<int> data;
+    cin>>n>>x;
+    int rows = n, cols=n;
     
-    while (n>0) {
-        int temp = 0;
-        cin>>temp;
-        data.push_back(temp);
-        n--;
-    }
-    
-    unordered_map<int,int>freqMap;
-    int maxFreq = 0 ;
-    
-    vector<int> zhongshu;
-    
-    for (int num : data) {
-        freqMap[num]++;
-        maxFreq = max(maxFreq, freqMap[num]);
-    }
-    
-    for(auto &pair : freqMap){
-        if (pair.second==maxFreq) {
-            zhongshu.push_back(pair.first);
+    int matrix[rows][cols];
+    // 输入矩阵
+    for (int i=0; i<rows; i++) {
+        for (int j=0; j<cols; j++) {
+            cin>>matrix[i][j];
         }
     }
     
-    // sort
-    sort(zhongshu.begin(), zhongshu.end());
-    
-    cout<<zhongshu.size()<<"\n";
-    
-    for (int j =0; j<zhongshu.size(); j++) {
-        cout<<zhongshu[j]<<" ";
+    //输出矩阵
+    for (int m=0; m<rows; m++) {
+        for (int h=0; h<cols; h++) {
+            
+            // 线段 y=x, 以及y=-x+n； +x
+            if (h== n-1-m || h==m) {
+                matrix[m][h]+=x;
+            }
+            
+            cout<<matrix[m][h]<<" ";
+        }
+        cout<<"\n";
     }
     
     return 0;
