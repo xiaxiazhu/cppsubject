@@ -12,14 +12,16 @@
 #include <cmath>
 #include <climits>
 #include <unordered_map>
+#include <stack>
 
 using namespace std;
 
 int main() {
-    int n,x;
+    int n,m;
     
-    cin>>n>>x;
-    int rows = n, cols=n;
+    cin>>n>>m;
+    
+    int rows = n, cols=m;
     
     int matrix[rows][cols];
     // 输入矩阵
@@ -29,19 +31,62 @@ int main() {
         }
     }
     
-    //输出矩阵
-    for (int m=0; m<rows; m++) {
-        for (int h=0; h<cols; h++) {
-            
-            // 线段 y=x, 以及y=-x+n； +x
-            if (h== n-1-m || h==m) {
-                matrix[m][h]+=x;
+    stack<int> sAP;
+
+    int angPoint = 0 ;
+    
+    
+    for (int a=0; a<rows; a++) {
+        // 横向迭代，纵向比较出最小值坐标
+        int minTemp=INT_MAX;
+        
+        int maxTemp = INT_MIN;
+        
+        int colsIndexArray=-1;
+        
+        for (int b=0; b<cols; b++) {
+            // 先查重
+            if (matrix[a][b] == maxTemp) {
+                sAP.push(b);
+            }
+            if (matrix[a][b] > maxTemp) {
+                
+                maxTemp=matrix[a][b];
+                
+                colsIndexArray = b; // 最da值
+                
+                // reset sap
+                while (!sAP.empty()) {
+                    sAP.pop();
+                }
+                                
+            }
+        }
+        
+        sAP.push(colsIndexArray);
+        
+        while (!sAP.empty()) {
+            // a==0, colsindex = b;(a,colsindex)
+            bool isDoodleNum = true;
+
+            int sapcols=sAP.top();
+            sAP.pop();
+        
+            for (int k =0; k<rows; k++) {
+                if (matrix[a][sapcols] > matrix[k][sapcols]) {
+                    isDoodleNum=false;
+                    break;
+                }
             }
             
-            cout<<matrix[m][h]<<" ";
+            if (isDoodleNum) {
+                angPoint++;
+            }
         }
-        cout<<"\n";
+
     }
     
+    cout<<angPoint<<endl;
+
     return 0;
 }
