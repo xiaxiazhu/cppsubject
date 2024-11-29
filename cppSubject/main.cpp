@@ -17,76 +17,31 @@
 using namespace std;
 
 int main() {
-    int n,m;
     
-    cin>>n>>m;
+    int n;
+    cin>>n;
     
-    int rows = n, cols=m;
+    vector<vector<long int>> yanhuiTriangle(n,vector<long int>(n));
     
-    int matrix[rows][cols];
-    // 输入矩阵
-    for (int i=0; i<rows; i++) {
-        for (int j=0; j<cols; j++) {
-            cin>>matrix[i][j];
+    for (int i = 0 ; i<n; i++) {
+//        yanhuiTriangle[0].resize(n+1);
+        
+        yanhuiTriangle[i][0]=1;
+        yanhuiTriangle[i][i]=1;
+
+        for (int j=1; j < i; j++) {
+                        //(2,1)
+            yanhuiTriangle[i][j] = yanhuiTriangle[i-1][j-1]+yanhuiTriangle[i-1][j];
+            yanhuiTriangle[i][j] %=4294967296;
         }
     }
-    
-    stack<int> sAP;
 
-    int angPoint = 0 ;
-    
-    
-    for (int a=0; a<rows; a++) {
-        // 横向迭代，纵向比较出最小值坐标
-        int minTemp=INT_MAX;
-        
-        int maxTemp = INT_MIN;
-        
-        int colsIndexArray=-1;
-        
-        for (int b=0; b<cols; b++) {
-            // 先查重
-            if (matrix[a][b] == maxTemp) {
-                sAP.push(b);
-            }
-            if (matrix[a][b] > maxTemp) {
-                
-                maxTemp=matrix[a][b];
-                
-                colsIndexArray = b; // 最da值
-                
-                // reset sap
-                while (!sAP.empty()) {
-                    sAP.pop();
-                }
-                                
-            }
+    for (int h=0;h<n ; h++) {
+        for (int k=0; k<=h; k++) {
+            cout<< yanhuiTriangle[h][k]<<" ";
         }
-        
-        sAP.push(colsIndexArray);
-        
-        while (!sAP.empty()) {
-            // a==0, colsindex = b;(a,colsindex)
-            bool isDoodleNum = true;
-
-            int sapcols=sAP.top();
-            sAP.pop();
-        
-            for (int k =0; k<rows; k++) {
-                if (matrix[a][sapcols] > matrix[k][sapcols]) {
-                    isDoodleNum=false;
-                    break;
-                }
-            }
-            
-            if (isDoodleNum) {
-                angPoint++;
-            }
-        }
-
+        cout<<'\n';
     }
-    
-    cout<<angPoint<<endl;
 
     return 0;
 }
