@@ -16,34 +16,30 @@
 
 using namespace std;
 
-
-int trigleMaxLujing(vector<vector<int>> &triangle,int n)
-{
-    for (int i=n-2; i >=0 ; i--) {
-        for (int j =0; j<=i; j++) {
-            triangle[i][j] += max(triangle[i+1][j],triangle[i+1][j+1]);
-        }
-    }
-    return triangle[0][0];
-}
-
-
 int main() {
+    int c = 5;
+    vector<vector<long int>> matrix(c,vector<long int>(c));
     
-    int n;
-    
-    cin >> n;
-    
-    vector<vector<int>> trigle(n,vector<int>(n));
-
-    for (int i =0; i< n; i++) {
-        for (int j=0; j<=i; j++) {
-            cin>>trigle[i][j];
+    for (int i=0; i<c; i++) {
+        for (int j=0; j<c; j++) {
+            cin>> matrix[i][j];
         }
     }
+    int m,n;
+    cin>>m>>n; // （1 <= m,n <= 5）
     
-    // 从底部开始算
-    cout << trigleMaxLujing(trigle,n)<<endl;
+    vector<long int> temp(c);
+    
+    temp = matrix[m-1];
+    matrix[m-1]=matrix[n-1];
+    matrix[n-1] = temp;
+    
+    for (int k=0; k<n; k++) {
+        for (int h=0; h<n; h++) {
+            cout << matrix[k][h]<<" ";
+        }
+        cout<<"\n";
+    }
     
     return 0;
 }
