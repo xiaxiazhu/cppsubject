@@ -16,32 +16,34 @@
 
 using namespace std;
 
+
+int trigleMaxLujing(vector<vector<int>> &triangle,int n)
+{
+    for (int i=n-2; i >=0 ; i--) {
+        for (int j =0; j<=i; j++) {
+            triangle[i][j] += max(triangle[i+1][j],triangle[i+1][j+1]);
+        }
+    }
+    return triangle[0][0];
+}
+
+
 int main() {
     
     int n;
-    cin>>n;
     
-    vector<vector<long int>> yanhuiTriangle(n,vector<long int>(n));
+    cin >> n;
     
-    for (int i = 0 ; i<n; i++) {
-//        yanhuiTriangle[0].resize(n+1);
-        
-        yanhuiTriangle[i][0]=1;
-        yanhuiTriangle[i][i]=1;
+    vector<vector<int>> trigle(n,vector<int>(n));
 
-        for (int j=1; j < i; j++) {
-                        //(2,1)
-            yanhuiTriangle[i][j] = yanhuiTriangle[i-1][j-1]+yanhuiTriangle[i-1][j];
-            yanhuiTriangle[i][j] %=4294967296;
+    for (int i =0; i< n; i++) {
+        for (int j=0; j<=i; j++) {
+            cin>>trigle[i][j];
         }
     }
-
-    for (int h=0;h<n ; h++) {
-        for (int k=0; k<=h; k++) {
-            cout<< yanhuiTriangle[h][k]<<" ";
-        }
-        cout<<'\n';
-    }
-
+    
+    // 从底部开始算
+    cout << trigleMaxLujing(trigle,n)<<endl;
+    
     return 0;
 }
