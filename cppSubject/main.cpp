@@ -16,27 +16,36 @@
 
 using namespace std;
 
+
+
 int main() {
-    int c = 5;
-    vector<vector<long int>> matrix(c,vector<long int>(c));
+    int n , m;
+    cin >> n >> m;
     
-    for (int i=0; i<c; i++) {
-        for (int j=0; j<c; j++) {
-            cin>> matrix[i][j];
+    vector<vector<int>> pictureMatrix( n,vector<int>(m) );
+    vector<vector<int>> pictureMatrixNew( n,vector<int>(m) );
+    
+    for (int i=0; i<n; i++) {
+        for (int j =0; j<m; j++) {
+            cin>>pictureMatrix[i][j];
         }
     }
-    int m,n;
-    cin>>m>>n; // （1 <= m,n <= 5）
     
-    vector<long int> temp(c);
+    pictureMatrixNew = pictureMatrix;
     
-    temp = matrix[m-1];
-    matrix[m-1]=matrix[n-1];
-    matrix[n-1] = temp;
+    // 灰度处理
+    for (int a = 1 ; a<=n-2; a++) {
+        for (int b = 1; b<=m-2; b++) {
+            // 上下左右取平均
+            // (numerator + denominator / 2) / denominator 四舍五入，不需要用double
+            pictureMatrixNew[a][b] = ( pictureMatrix[a][b] + pictureMatrix[a-1][b]+pictureMatrix[a+1][b]+pictureMatrix[a][b-1]+pictureMatrix[a][b+1] + 5/2 )/5;
+            
+        }
+    }
     
-    for (int k=0; k<n; k++) {
-        for (int h=0; h<n; h++) {
-            cout << matrix[k][h]<<" ";
+    for (int d=0; d<n; d++) {
+        for (int e=0; e<m; e++) {
+            cout<< pictureMatrixNew[d][e]<<" ";
         }
         cout<<"\n";
     }
