@@ -17,38 +17,48 @@
 using namespace std;
 
 
-
 int main() {
-    int n , m;
-    cin >> n >> m;
+    int n;
+    cin>>n;
     
-    vector<vector<int>> pictureMatrix( n,vector<int>(m) );
-    vector<vector<int>> pictureMatrixNew( n,vector<int>(m) );
+    vector<vector<int>> matrix(n,vector<int>(n,-1));
     
-    for (int i=0; i<n; i++) {
-        for (int j =0; j<m; j++) {
-            cin>>pictureMatrix[i][j];
+    int top = 1, right=n,bottom=n,left=1;
+    
+    int sum=0;
+    
+    while (top<=bottom && left<=right) {
+        
+        // 从左到右
+        for (int t=top; t<=right;t++) {
+            matrix[top-1][t-1] = ++sum;
         }
-    }
-    
-    pictureMatrixNew = pictureMatrix;
-    
-    // 灰度处理
-    for (int a = 1 ; a<=n-2; a++) {
-        for (int b = 1; b<=m-2; b++) {
-            // 上下左右取平均
-            // (numerator + denominator / 2) / denominator 四舍五入，不需要用double
-            pictureMatrixNew[a][b] = ( pictureMatrix[a][b] + pictureMatrix[a-1][b]+pictureMatrix[a+1][b]+pictureMatrix[a][b-1]+pictureMatrix[a][b+1] + 5/2 )/5;
-            
+        top++;
+        
+        // 从上到下
+        for (int r= top; r<=bottom; r++) {
+            matrix[r-1][right-1]= ++sum;
         }
+        right--;
+        
+        //从右到左
+        for (int b=right; b>=left; b--) {
+            matrix[bottom-1][b-1]=++sum;
+        }
+        bottom--;
+        
+        // 从下倒上
+        for (int l =bottom; l>=top; l--) {
+            matrix[l-1][left-1]= ++sum;
+        }
+        left++;
     }
-    
-    for (int d=0; d<n; d++) {
-        for (int e=0; e<m; e++) {
-            cout<< pictureMatrixNew[d][e]<<" ";
+    for(auto m:matrix){
+        for(auto ma:m){
+            cout<<ma<<" ";
         }
         cout<<"\n";
     }
+
     
-    return 0;
 }
