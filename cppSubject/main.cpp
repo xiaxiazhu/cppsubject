@@ -16,26 +16,38 @@
 
 using namespace std;
 
-//
-//输入一个整数，求其各位数的数字和
-int zhengshuSum(long int value){
-    
-    int n =0;
-
-    while (value>0) {
-        
-        n +=value%10;
-        
-        value=value/10;
+//个位数上的数字减去千位数上的数字，再减去百位数上的数字， 再减去十位数上的数字的结果大于等于零
+bool fuhe(int n){
+    vector<int> weishu;
+    while (n>0) {
+        weishu.push_back(n%10);
+        n=n/10;
     }
-    
-    return n;
+    //1234 1234 1349 6119 2123 5017
+//    reverse(weishu.begin(), weishu.end());
+    if (weishu[0]-weishu[3]-weishu[2]-weishu[1]>=0) {
+        return true;
+    }else{
+        return  false;
+    }
 }
 
 int main(){
-    long int _value;
-    cin>>_value;
-    cout<< zhengshuSum(_value);
+    int number;
+    cin>>number;
     
+    vector<int> nlist(number);
+    
+    for (int i =0; i<number; i++) {
+        cin>>nlist[i];
+    }
+    
+    int fuheSum=0;
+    for(int elem : nlist){
+        if(fuhe(elem)){
+            fuheSum++;
+        };
+    }
+    cout<<fuheSum;
     return 1;
 }
