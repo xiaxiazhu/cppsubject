@@ -16,39 +16,26 @@
 
 using namespace std;
 
-bool isPrime(long int num){
-    //若一个正整数N为合数，则存在一个能整除N的数K，其中2<=K<=sqrt(N)
-    if (num==2) {
-        cout<<"YES";
-        return true;
-    }
+//
+//输入一个整数，求其各位数的数字和
+int zhengshuSum(long int value){
     
-    if (num%2==0) {
-        cout<<"NO";
-        return false;
-    }
-    
-    if (num%3==0) {
-        return false;
-    }
-    
-    long int a = 1;
-    while (a*6-1<=sqrt(num)&&a>=1) {
+    int n =0;
+
+    while (value>0) {
         
-        if(num%(a*6+1)==0||num%(a*6-1)==0){
-            cout<<"NO";
-            return false;
-        }
-        a++;
+        n +=value%10;
+        
+        value=value/10;
     }
-    cout<<"YES";
-    return true;
+    
+    return n;
 }
 
 int main(){
+    long int _value;
+    cin>>_value;
+    cout<< zhengshuSum(_value);
     
-    long int num;
-    cin >>num;
-    isPrime(num);
-    
+    return 1;
 }
