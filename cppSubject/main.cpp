@@ -16,19 +16,23 @@
 
 using namespace std;
 
-bool swapAB(int &a ,int &b ){
-    int temp = a ;
-    a = b;
-    b = temp;
-    
-    return  true;
-}
 
 int main(){
 
-    int a,b;
-    cin>>a>>b;
-    swapAB(a, b);
-    cout<<a<<" "<<b;
+    int n;
+    cin>>n;
     
+    vector<int> list(n);
+    
+    for (int i = 0; i<n; i++) {
+        cin>>list[i];
+    }
+    
+    sort(list.begin(), list.end(),[](int a,int b){
+        return a>b;
+    });
+    
+    for(int t:list){
+        cout<<t<<" ";
+    }
 }
