@@ -16,23 +16,39 @@
 
 using namespace std;
 
-long int factorial( int n){
-    
-    if (n==1||n==0) {
-        return 1;
-    }else{
-        return n*factorial(n-1);
+int gcd(int a,int b){
+    while (b>=0) {
+        if (b==0) {
+            return a;
+        }
+        int temp = b;
+        b=a%b;
+        a=temp;
     }
+    
+    return a;
 }
 
 int main(){
-    //求不大于n的正整数的阶乘的和（即求1!+2!+3!+...+n!）
-    int n;
-    cin>>n;
-    int sum = 0 ;
+    //输入样例中有3个学校，人数分别为12、16、20，因为12=4×3，16=4×4，20=4×5，所以最多可以分成4个队，3个学校//在每个队中的人数分别为3人、4人、5人。
+    int n ;
+    cin >> n;
     
-    for (int i = 1 ; i<=n; i++) {
-        sum+=factorial(i);
+    vector<int> schoolList(n);
+    
+    for (int i =0; i<n; i++) {
+        cin>>schoolList[i];
     }
-    cout <<sum;
+    int dn=0;
+    //求最大公约数。
+    for (int j=0; j<n; j++) {
+        if (j==0) {
+            dn = gcd(schoolList[j],schoolList[j+1]);
+        }else{
+            dn = gcd(schoolList[j], dn);
+        }
+    }
+    
+    cout<<dn<<" ";
+    
 }
