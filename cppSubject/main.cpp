@@ -16,23 +16,23 @@
 
 using namespace std;
 
+long int factorial( int n){
+    
+    if (n==1||n==0) {
+        return 1;
+    }else{
+        return n*factorial(n-1);
+    }
+}
 
 int main(){
-
+    //求不大于n的正整数的阶乘的和（即求1!+2!+3!+...+n!）
     int n;
     cin>>n;
+    int sum = 0 ;
     
-    vector<int> list(n);
-    
-    for (int i = 0; i<n; i++) {
-        cin>>list[i];
+    for (int i = 1 ; i<=n; i++) {
+        sum+=factorial(i);
     }
-    
-    sort(list.begin(), list.end(),[](int a,int b){
-        return a>b;
-    });
-    
-    for(int t:list){
-        cout<<t<<" ";
-    }
+    cout <<sum;
 }
