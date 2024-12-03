@@ -16,20 +16,19 @@
 
 using namespace std;
 
-int gcd(int a ,int b){
-    while (b>=0) {
-        if (b==0) { return a;}
-        int temp = a%b;
-        a=b;
-        b=temp;
-    }
-    return a;
+bool swapAB(int &a ,int &b ){
+    int temp = a ;
+    a = b;
+    b = temp;
+    
+    return  true;
 }
 
 int main(){
-    int m,n;
-    cin>>m>>n;
-    
-    cout<<gcd(m,n);
 
+    int a,b;
+    cin>>a>>b;
+    swapAB(a, b);
+    cout<<a<<" "<<b;
+    
 }
