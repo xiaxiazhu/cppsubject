@@ -16,19 +16,27 @@
 
 using namespace std;
 
-string check(long int n,long int d){
-    string nStr = to_string(n);
-    if (nStr.find(to_string(d))!=string::npos) {
-        return "true";
+long int factorial( int n){
+    
+    if (n==1||n==0) {
+        return 1;
     }else{
-        return "false";
+        return n*factorial(n-1);
     }
 }
 
+long int cnmFunction(int n ,int m){
+    
+//    cout <<factorial(n)<<"\n";
+//    cout<< factorial(m)<<"\n";
+//    cout<< factorial(n-m)<<"\n";
+    return (
+             factorial(n)     /
+            (factorial(m)*factorial(n-m)));
+}
+
 int main(){
-    
-    long int n,d;
-    cin>>n>>d;
-    
-    cout<<check(n,d);
+    int n,m;
+    cin>>n>>m;
+    cout<<cnmFunction(n,m);
 }
