@@ -16,39 +16,48 @@
 
 using namespace std;
 
-int gcd(int a,int b){
-    while (b>=0) {
-        if (b==0) {
-            return a;
-        }
-        int temp = b;
-        b=a%b;
-        a=temp;
+int digtalSum(int n){
+    
+    int sum=0;
+
+    while (n>0) {
+        int temp = n%10;
+        sum+=temp;
+        n=n/10;
+    }
+    return sum;
+}
+
+int findDigitalRoots(int num){
+    
+    int dr=0;
+    dr=digtalSum(num);
+    while (dr>=10) {
+        dr = digtalSum(dr);
     }
     
-    return a;
+    return dr;
 }
 
 int main(){
-    //输入样例中有3个学校，人数分别为12、16、20，因为12=4×3，16=4×4，20=4×5，所以最多可以分成4个队，3个学校//在每个队中的人数分别为3人、4人、5人。
-    int n ;
-    cin >> n;
+    //一个整数的“Digital Roots”就是这个整数的各位数字的和，如果这个和是一个一位数，则这个一位数就是这个整数的“Digital Roots”，否则的话则继续求这个和的“Digital Roots”，直到最后得出一个一位数。
+
+    vector<int> numList;
     
-    vector<int> schoolList(n);
-    
-    for (int i =0; i<n; i++) {
-        cin>>schoolList[i];
-    }
-    int dn=0;
-    //求最大公约数。
-    for (int j=0; j<n; j++) {
-        if (j==0) {
-            dn = gcd(schoolList[j],schoolList[j+1]);
-        }else{
-            dn = gcd(schoolList[j], dn);
-        }
+    while (true) {
+        int x;
+        cin>>x;
+        if (x!=0) {
+            numList.push_back(x);
+        }else{break;}
     }
     
-    cout<<dn<<" ";
+    for (int i=0; i<numList.size(); i++) {
+        
+        int result = findDigitalRoots(numList[i]);
+        cout<<result<<"\n";
+
+        
+    }
     
 }
