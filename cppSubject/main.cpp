@@ -16,27 +16,20 @@
 
 using namespace std;
 
-long int factorial( int n){
-    
-    if (n==1||n==0) {
-        return 1;
-    }else{
-        return n*factorial(n-1);
+int gcd(int a ,int b){
+    while (b>=0) {
+        if (b==0) { return a;}
+        int temp = a%b;
+        a=b;
+        b=temp;
     }
-}
-
-long int cnmFunction(int n ,int m){
-    
-//    cout <<factorial(n)<<"\n";
-//    cout<< factorial(m)<<"\n";
-//    cout<< factorial(n-m)<<"\n";
-    return (
-             factorial(n)     /
-            (factorial(m)*factorial(n-m)));
+    return a;
 }
 
 int main(){
-    int n,m;
-    cin>>n>>m;
-    cout<<cnmFunction(n,m);
+    int m,n;
+    cin>>m>>n;
+    
+    cout<<gcd(m,n);
+
 }
