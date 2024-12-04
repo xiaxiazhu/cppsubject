@@ -16,38 +16,34 @@
 
 using namespace std;
 
+bool isWanquanNum(int n){
+    
+    int yueshuSum = 0;
+    for (int i = 1; i<n; i++) {
+        if (n%i==0) {
+            yueshuSum+=i;
+        }
+    }
+    return yueshuSum == n;
+}
+
 int main(){
-    //两个相差为2的素数称为素数对，如5和7，17和19等，要求找出给定范围内所有的素数对。
+    // 完全数：28 的约数是 1，2，4，7，14，并且 1+2+4+7+14=28，所以 28 是完全数。
+    
     int min,max;
+    
     cin>>min>>max;
     
-    // 找在primevector中的出素数
-    //埃拉托斯特尼筛法
-    if (min>=max) {
-        cout<<"empty";
-        return -1;
-    }
-    vector<bool> isPrime(max+1,true);
+    bool isNo = true;
     
-    isPrime[0]=false;isPrime[1]=false;
-    
-    for (int i=2; i*i<=max; i++) {
-        // 2 以及2的倍数不是prime
-        //isPrime[2]=true;
-        if (isPrime[i]) {
-            for (int j = i*i; j<=max; j+=i) {
-                isPrime[j]=false;
-            }
+    for (int i = min; i<=max; i++) {
+        if(isWanquanNum(i)){
+            isNo=false;
+            cout<<std::uppercase<<std::hex<<i<<" ";
         }
     }
-    
-    // 输出相差为2的素数对
-    
-    for (int p=min; p<isPrime.size(); p++) {
-        if (isPrime[p]) {
-            if (isPrime[p+2]) {
-                cout<< p <<" " <<p+2<<"\n";
-            }
-        }
+    if (isNo) {
+        cout<<"no";
     }
+    
 }
