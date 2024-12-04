@@ -16,34 +16,46 @@
 
 using namespace std;
 
-bool isWanquanNum(int n){
+//int decToBinaryCursive(int dec){
+//    if (dec==0) {
+//        return "0";
+//    }
+//
+//    string binaryString = "";
+//
+//    while (dec>0) {
+//        binaryString = to_string(dec%2)+ binaryString;
+//        dec/=2;
+//    }
+//
+//    return  binaryString;
+//}
+
+int bitOneNumber(int num){
+    int count =0;
     
-    int yueshuSum = 0;
-    for (int i = 1; i<n; i++) {
-        if (n%i==0) {
-            yueshuSum+=i;
-        }
+    while (num) {
+        num=num &(num-1);
+        count++;
     }
-    return yueshuSum == n;
+    return count;
 }
 
+
 int main(){
-    // 完全数：28 的约数是 1，2，4，7，14，并且 1+2+4+7+14=28，所以 28 是完全数。
+    int s,t;
+    cin>>s>>t;
     
-    int min,max;
+    int canBiaoshi = 0 ;
     
-    cin>>min>>max;
-    
-    bool isNo = true;
-    
-    for (int i = min; i<=max; i++) {
-        if(isWanquanNum(i)){
-            isNo=false;
-            cout<<std::uppercase<<std::hex<<i<<" ";
+    for (int i =s; i<=t; i++) {
+        //求牛可以表示的数 四个1
+        
+        if (bitOneNumber(i)<5) {
+            canBiaoshi++;
         }
     }
-    if (isNo) {
-        cout<<"no";
-    }
+    cout<<canBiaoshi;
+
     
 }
