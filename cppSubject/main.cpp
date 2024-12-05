@@ -15,47 +15,78 @@
 #include <stack>
 
 using namespace std;
-
-//int decToBinaryCursive(int dec){
-//    if (dec==0) {
-//        return "0";
-//    }
-//
-//    string binaryString = "";
-//
-//    while (dec>0) {
-//        binaryString = to_string(dec%2)+ binaryString;
-//        dec/=2;
-//    }
-//
-//    return  binaryString;
-//}
-
-int bitOneNumber(int num){
-    int count =0;
     
-    while (num) {
-        num=num &(num-1);
-        count++;
+bool ishuiwen(string nStr){
+    
+    string fanStr=nStr ;
+
+    reverse(nStr.begin(),nStr.end());
+
+    if (nStr ==fanStr) {
+        return true;
+    }else{
+        return false;
     }
-    return count;
 }
 
+string jingZhiConvert(int value, int r){
+    
+    string result = "";
+    char charList[] = "0123456789ABCDEF";
+    
+    while (value>0) {
+        
+        result = charList[value%r] +result;
+        value=value/r;
+    }
+    
+    return result;
+    
+}
 
 int main(){
-    int s,t;
-    cin>>s>>t;
+    vector<int> input;
     
-    int canBiaoshi = 0 ;
-    
-    for (int i =s; i<=t; i++) {
-        //求牛可以表示的数 四个1
-        
-        if (bitOneNumber(i)<5) {
-            canBiaoshi++;
+    bool isPalindrom = false;
+    string pBasis = "";
+
+    while (true) {
+        int temp;
+        cin>>temp;
+        if (temp) {
+            input.push_back(temp);
+        }else{
+            break;
         }
     }
-    cout<<canBiaoshi;
+    
+    for (int t = 0 ; t<input.size(); t++) {
+        
+        // reset isPalindrom
+        isPalindrom=false;
+        pBasis="";
+        
+        vector<int> rList = {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
+        
+        
+        for(int r:rList){
+                        
+            string temp = jingZhiConvert(input[t],r);
 
+            if (ishuiwen(temp)) {
+                isPalindrom = true;
+                pBasis= pBasis+ to_string(r)+" ";
+            }
+            //Number 19 is not a palindrom
+        }
+        
+        if (isPalindrom) {
+            cout<<"Number " + to_string(input[t])+" is palindrom in basis "+ pBasis<<"\n";
+        }else{
+            cout<<"Number "+to_string(input[t])+" is not a palindrom"+"\n";
+        }
+        
+        
+    }
     
 }
