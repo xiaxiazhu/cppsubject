@@ -16,30 +16,23 @@
 
 using namespace std;
     
-bool ishuiwen(string nStr){
-    
-    string fanStr=nStr ;
-
-    reverse(nStr.begin(),nStr.end());
-
-    if (nStr ==fanStr) {
-        return true;
-    }else{
-        return false;
-    }
-}
 
 int main(){
+    string tString;
     
-    string testString;
+    getline(std::cin, tString);
     
-    getline(cin, testString);
+    char A;
+    char B;
     
-    if(ishuiwen(testString)){
-        cout<<"YES";
-    }else{
-        cout<<"NO";
-    }
+    cin>>A>>B;
+    
+//  string tp = tString.find("a");
+    
+    replace(tString.begin(), tString.end(), A,B);
+    
+
+    cout<<tString<<"\n";
     
     return 0;
 }
