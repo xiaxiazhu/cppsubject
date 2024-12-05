@@ -8,31 +8,52 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
-#include <cmath>
-#include <climits>
-#include <unordered_map>
-#include <stack>
+//#include <algorithm>
+//#include <cmath>
+//#include <climits>
+//#include <unordered_map>
+//#include <stack>
+#include <sstream>
 
 using namespace std;
-    
 
 int main(){
-    string tString;
     
-    getline(std::cin, tString);
+    string originStr;
     
-    char A;
-    char B;
+    getline(cin, originStr);
     
-    cin>>A>>B;
+    stringstream stream(originStr);
     
-//  string tp = tString.find("a");
+    vector<string>words;
     
-    replace(tString.begin(), tString.end(), A,B);
+    string word;
     
-
-    cout<<tString<<"\n";
+    while( stream >> word ){
+        
+        size_t pos = word.find(".");
+        
+        if (pos!= string::npos) {
+            //delete
+            word.erase(pos,1);
+        }
+        
+        
+        words.push_back(word);
+        
+    }
     
+    int length = 0;
+    string swMax = "";
+    
+    for(string sw:words){
+        
+        if(sw.size()>length){
+            length = (int)sw.size();
+            swMax = sw;
+        }
+    }
+    cout<<swMax<<" "<<to_string(length);
+        
     return 0;
 }
