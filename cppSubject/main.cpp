@@ -29,64 +29,17 @@ bool ishuiwen(string nStr){
     }
 }
 
-string jingZhiConvert(int value, int r){
-    
-    string result = "";
-    char charList[] = "0123456789ABCDEF";
-    
-    while (value>0) {
-        
-        result = charList[value%r] +result;
-        value=value/r;
-    }
-    
-    return result;
-    
-}
-
 int main(){
-    vector<int> input;
     
-    bool isPalindrom = false;
-    string pBasis = "";
-
-    while (true) {
-        int temp;
-        cin>>temp;
-        if (temp) {
-            input.push_back(temp);
-        }else{
-            break;
-        }
+    string testString;
+    
+    getline(cin, testString);
+    
+    if(ishuiwen(testString)){
+        cout<<"YES";
+    }else{
+        cout<<"NO";
     }
     
-    for (int t = 0 ; t<input.size(); t++) {
-        
-        // reset isPalindrom
-        isPalindrom=false;
-        pBasis="";
-        
-        vector<int> rList = {2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
-        
-        
-        for(int r:rList){
-                        
-            string temp = jingZhiConvert(input[t],r);
-
-            if (ishuiwen(temp)) {
-                isPalindrom = true;
-                pBasis= pBasis+ to_string(r)+" ";
-            }
-            //Number 19 is not a palindrom
-        }
-        
-        if (isPalindrom) {
-            cout<<"Number " + to_string(input[t])+" is palindrom in basis "+ pBasis<<"\n";
-        }else{
-            cout<<"Number "+to_string(input[t])+" is not a palindrom"+"\n";
-        }
-        
-        
-    }
-    
+    return 0;
 }
