@@ -14,23 +14,22 @@
 //#include <unordered_map>
 //#include <stack>
 #include <sstream>
+#include <algorithm>
+#include <cctype>
+
 
 using namespace std;
 
-
-
 int main(){
-    
+        
     string inputStr;
-    getline(std::cin, inputStr);
+    getline(cin, inputStr);
     
-    int num=0;
+    transform(inputStr.begin(), inputStr.end(), inputStr.begin(), [](unsigned char c){
+        return toupper(c);
+    });
     
-    for(char c: inputStr){
-        if (isdigit(c)) {
-            num++;
-        }
-    }
-    cout<<num;
+    cout<<inputStr;
+    
     return 0;
 }
