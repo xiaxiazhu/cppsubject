@@ -17,43 +17,33 @@
 
 using namespace std;
 
+std::vector<std::string> splitByDelimiter(const std::string& str, char delimiter) {
+    std::vector<std::string> segments;
+    std::istringstream stream(str);
+    std::string segment;
+
+    while (std::getline(stream, segment, delimiter)) {
+        segments.push_back(segment);
+    }
+
+    return segments;
+}
+
+
 int main(){
     
-    string originStr;
+    string words;
     
-    getline(cin, originStr);
+    getline(cin, words);
     
-    stringstream stream(originStr);
+    vector<string> segments =  splitByDelimiter(words, '+');
     
-    vector<string>words;
-    
-    string word;
-    
-    while( stream >> word ){
-        
-        size_t pos = word.find(".");
-        
-        if (pos!= string::npos) {
-            //delete
-            word.erase(pos,1);
-        }
-        
-        
-        words.push_back(word);
-        
+    int sum=0;
+    for(auto seg:segments){
+        sum+= stoi(seg);
     }
     
-    int length = 0;
-    string swMax = "";
-    
-    for(string sw:words){
-        
-        if(sw.size()>length){
-            length = (int)sw.size();
-            swMax = sw;
-        }
-    }
-    cout<<swMax<<" "<<to_string(length);
+    cout<<sum<<"\n";
         
     return 0;
 }
