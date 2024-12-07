@@ -20,43 +20,72 @@
 
 using namespace std;
 
-int searchTableIndex(char c){
+
+int main(){
     
-    char table[27]=
-    {'^','A','B','C','D','E','F','G','H','I','G','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    int n,m;
+    cin>>n>>m;
+    vector<vector<char>> tableMatrix(n,vector<char>(m));
     
-    for (int i =0; i<sizeof(table)/sizeof(table[0]); i++) {
-        
-        if (table[i] == c) {
-            return i;
+    for (int i=0; i<n; i++) {
+        for (int j=0; j<m; j++) {
+            cin>>tableMatrix[i][j];
+        }
+    }
+
+    //矩阵外面围一层0。
+    vector<vector<char>>waiweiMatrix(n+2,vector<char>(m+2,0));
+    
+    for (int k=1; k<n+1; k++) {
+        for (int l =1; l<m+1; l++) {
+            waiweiMatrix[k][l]=tableMatrix[k-1][l-1];
         }
     }
     
-    return -1;
-}
-
-int main(){
-        
-    string HuixinName,xiaozuName;
-    
-    cin>>HuixinName;
-    cin>>xiaozuName;
-    
-    int hxnNum=1,xzNum=1;
-    
-    for(char c : HuixinName){
-        hxnNum *= searchTableIndex(c);
+    for (int c=1; c<n+1;c++) {
+        for (int d=1; d<m+1; d++) {
+            // 避开*
+            if (waiweiMatrix[c][d]!= '*'&&waiweiMatrix[c][d]=='?') {
+                char num = '0';
+                //上下左右
+                if(waiweiMatrix[c-1][d]=='*'){
+                    num++;
+                }
+                if (waiweiMatrix[c+1][d]=='*') {
+                    num++;
+                }
+                if (waiweiMatrix[c][d-1]=='*') {
+                    num++;
+                }
+                if (waiweiMatrix[c][d+1] =='*') {
+                    num++;
+                }
+                //左上，右上，左下，右下
+                if(waiweiMatrix[c-1][d-1]=='*'){
+                    num++;
+                }
+                if(waiweiMatrix[c-1][d+1]=='*'){
+                    num++;
+                }
+                if(waiweiMatrix[c+1][d-1]=='*'){
+                    num++;
+                }
+                if(waiweiMatrix[c+1][d+1]=='*'){
+                    num++;
+                }
+                                
+                // 采集周围的数据
+                waiweiMatrix[c][d]=static_cast<char>(num);
+            }
+            
+        }
     }
-//    searchTableIndex("A")*
     
-    for(char c: xiaozuName){
-        xzNum*= searchTableIndex(c);
-    }
-    
-    if (hxnNum%47 == xzNum%47) {
-        cout<<"GO";
-    }else{
-        cout<<"STAY";
+    for (int a =1; a<n+1; a++) {
+        for (int b=1; b<m+1; b++) {
+            cout<<waiweiMatrix[a][b];
+        }
+        cout<<"\n";
     }
     
     return 0;
