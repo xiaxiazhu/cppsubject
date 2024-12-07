@@ -17,33 +17,20 @@
 
 using namespace std;
 
-std::vector<std::string> splitByDelimiter(const std::string& str, char delimiter) {
-    std::vector<std::string> segments;
-    std::istringstream stream(str);
-    std::string segment;
-
-    while (std::getline(stream, segment, delimiter)) {
-        segments.push_back(segment);
-    }
-
-    return segments;
-}
 
 
 int main(){
     
-    string words;
+    string inputStr;
+    getline(std::cin, inputStr);
     
-    getline(cin, words);
+    int num=0;
     
-    vector<string> segments =  splitByDelimiter(words, '+');
-    
-    int sum=0;
-    for(auto seg:segments){
-        sum+= stoi(seg);
+    for(char c: inputStr){
+        if (isdigit(c)) {
+            num++;
+        }
     }
-    
-    cout<<sum<<"\n";
-        
+    cout<<num;
     return 0;
 }
