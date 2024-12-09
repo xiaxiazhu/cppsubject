@@ -17,14 +17,21 @@
 #include <algorithm>
 #include <cctype>
 
-
 using namespace std;
 
 class Point{
 public:
     int x;
     int y;
+    Point():x(1),y(1){};
     Point(int _x,int _y):x(_x),y(_y){};
+    
+    bool operator==(const Point& other)const{
+        return (x==other.x)&&(y==other.y);
+    }
+    bool operator < (const Point& other)const{
+        return (x<other.x)||(x==other.x && y<other.y);
+    }
 };
 
 class Robet{
@@ -37,7 +44,8 @@ public:
     int mapn=0;
     int mapm=0;
     int k=5;
-    int step=0;
+    unsigned long step=1;
+    vector<Point> lujingPoints;
     
     Robet( int _x,int _y,int _d,int _n,int _m,int _k):x(_x),y(_y),d(_d),mapn(_n),mapm(_m),k(_k){
         
@@ -52,7 +60,31 @@ public:
         
         this->map = nmMap;
         
+        // 初始化位置
+        this->lujingPoints.push_back(Point(x,y));
+        
     }; // 初始化列表
+    
+    unsigned long duplicateLujing(){
+        
+        
+        sort(this->lujingPoints.begin(), this->lujingPoints.end());
+        
+        auto last = unique(this->lujingPoints.begin(), this->lujingPoints.end());
+        
+        this->lujingPoints.erase(last,this->lujingPoints.end());
+        
+//        set<Point>uniquePointSet(this->lujingPoints.begin(),this->lujingPoints.end());//set 可以自动去重
+//
+//        vector<Point> uniqueLujing(uniquePointSet.begin(),uniquePointSet.end());
+//
+//        this->lujingPoints=uniqueLujing;
+//
+//        return lujingPoints.size();
+        
+        return  this->lujingPoints.size();
+    }
+    
     //d=0 代表向东， d = 1 d=1 代表向南， d = 2 d=2 代表向西， d = 3 d=3 代表向北
     
     int goNext(){
@@ -85,13 +117,16 @@ public:
         if (nextX<1||nextX>this->mapn||nextY<1||nextY>this->mapm) {
             
             this->d = (++direction)%4;
+//            cout<<"changedir"<< this->d<<" ";
             this->k--;
             goNext();
         }
         // map
         if (this->map[nextX][nextY] == 'x') {
             // 往右转
-            this->d = (++ direction)%4;
+            this->d = (++direction)%4;
+//            cout<<"changedireright"<< d <<" ";
+
             this->k--;
             goNext();
         }
@@ -101,6 +136,11 @@ public:
             this->y=nextY;
             this->k--;
             this->step++;
+            
+            this->lujingPoints.push_back(Point(nextX,nextY));
+            
+//            cout<<"next"<<" "<<nextX<<" "<<nextY<<" ";
+
             goNext();
         }
 
@@ -124,8 +164,8 @@ int main(){
     int zushu;
     cin>>zushu;
     
-    vector<Robet> rbt;
-    
+    Robet * robet[zushu];
+
     for (int z=0; z<zushu; z++) {
         
         int n[zushu],m[zushu],k[zushu],x0[zushu],y0[zushu],d0[zushu];
@@ -135,13 +175,17 @@ int main(){
         
         //起始数据
         // n个类的实例
+        robet[z]= new Robet(x0[z],y0[z],d0[z],n[z],m[z],k[z]);
         
-        rbt.push_back(Robet(x0[z],y0[z],d0[z],n[z],m[z],k[z]));
     }
     
     for (int r=0; r<zushu; r++) {
-        rbt[r].goNext();
-        cout<<rbt[r].step<<endl;
+        robet[r]->goNext();
+        // lujing去重复的点
+        
+        robet[r]->step=robet[r]->duplicateLujing();
+        
+        cout<<robet[r]->step<<endl;
     }
 
     
