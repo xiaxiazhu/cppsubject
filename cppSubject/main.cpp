@@ -20,32 +20,27 @@
 
 using namespace std;
 
-char findFirstChar(string inputStr){
-    unordered_map<char, int> strMap;
-    
-    for(char c:inputStr){
-        strMap[c]++;
-    }
-    
-    for(char c :inputStr){
-        if(strMap[c]==1){
-            return c;
-        }
-    }
-    return '0';
-}
 int main(){
+    
+    //    a#abcd#xyz#efgh#opq
+    
     string inputStr;
     
-    cin>> inputStr;
+    getline(cin, inputStr);
+        
+    vector<int> xulie;
     
-    char fc = findFirstChar(inputStr);
-    
-    if (fc=='0') {
-        cout<<"no"<<endl;
-    }else{
-        cout<< fc<<endl;
+    for (int i = 0 ; i<inputStr.size(); i++) {
+        if (inputStr[i]=='#') {
+            xulie.push_back(i);
+        }
     }
     
+    string result;
+    for (int k = 0 ; k<xulie.size(); k+=2) {
+        result += inputStr.substr(xulie[k]+1,xulie[k+1]-xulie[k]-1);
+    }
+    
+    cout<<result;
     return 0;
 }
