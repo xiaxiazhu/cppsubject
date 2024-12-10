@@ -16,47 +16,36 @@
 #include <sstream>
 #include <algorithm>
 #include <cctype>
+#include <unordered_map>
 
 using namespace std;
 
-int main(){
-    //Hello      world.This is    c language.
+char findFirstChar(string inputStr){
+    unordered_map<char, int> strMap;
     
-    string inputStr;
-    string outStr;
-    
-    getline(cin, inputStr);
-    
-//    int tempDel=0;// 连续空格数
-    
-    for (int i=0; i<inputStr.size();) {
-        
-        if(inputStr[i] != ' '){
-            
-            outStr+=inputStr[i];
-            
-            i++;
-        }
-        if (inputStr[i]==' ') {
-            // 只有一个空格
-//            if (inputStr[i+1]!=' ') {
-//
-//            }
-            // 越过连续空格
-            int k = 1;
-            
-            while (inputStr[i+k]==' ') {
-                k++;
-            }
-            
-            i=i+k; // 指针跳过指向下一个字符
-            
-            outStr+=' ';
-            
-        }
+    for(char c:inputStr){
+        strMap[c]++;
     }
     
-
-    cout<< outStr;
+    for(char c :inputStr){
+        if(strMap[c]==1){
+            return c;
+        }
+    }
+    return '0';
+}
+int main(){
+    string inputStr;
+    
+    cin>> inputStr;
+    
+    char fc = findFirstChar(inputStr);
+    
+    if (fc=='0') {
+        cout<<"no"<<endl;
+    }else{
+        cout<< fc<<endl;
+    }
+    
     return 0;
 }
