@@ -45,7 +45,10 @@ int main(){
         
         for (int k =0; k<message[j].size();k++) {
             
-//            string test = message[j];
+//          string test = message[j];
+            if (k==0&&message[j][k]=='#') {
+                message[j].erase(k,1);
+            }
             
             while (message[j][k] == '#' && k!= 0) {
                 message[j].erase(k-1,2);
@@ -55,7 +58,6 @@ int main(){
             if (message[j][k] == '@' ){
                 message[j].erase(0,k+1);
             }
-            
             
         }
         message[j]+='\n';
