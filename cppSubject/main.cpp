@@ -21,36 +21,37 @@
 using namespace std;
 
 
-bool compare(const string &a,const string &b){
-    return a+b>b+a; //精华就在这里
-}
 
 int main(){
+
+    string inputStr,beReplaceWord,replaceWord;
     
-    // 找出第一个数，然后排序，一个一个加起来
-    int num;
-    cin>>num;
+    getline(cin, inputStr);
     
-    vector<int> numberList(num);
+    cin>>beReplaceWord;
     
-    for (int i=0; i<num; i++) {
-        cin>>numberList[i];
+    cin>>replaceWord;
+    
+    
+    istringstream stream(inputStr);
+    
+    string word;
+    
+    vector<string> words;
+    
+    while (stream >> word) {
+        
+        if (word == beReplaceWord) {
+            word = replaceWord;
+        }
+        
+        words.push_back(word);
     }
-    
-    vector<string> strList(num);
-    
-    for(int in:numberList){
-        strList.push_back(to_string(in));
-    };
-    
-    sort(strList.begin(), strList.end(), compare); // compare 函数用途于自定义的排序
     
     string result;
-    
-    for (int j=0; j<strList.size(); j++) {
-        result+=strList[j];
+    for(string wd:words){
+        result+=wd+" ";
     }
-    
     cout<<result;
     
     return 0;
