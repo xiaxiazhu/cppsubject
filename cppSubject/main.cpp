@@ -20,27 +20,38 @@
 
 using namespace std;
 
+
+bool compare(const string &a,const string &b){
+    return a+b>b+a; //精华就在这里
+}
+
 int main(){
     
-    //    a#abcd#xyz#efgh#opq
+    // 找出第一个数，然后排序，一个一个加起来
+    int num;
+    cin>>num;
     
-    string inputStr;
+    vector<int> numberList(num);
     
-    getline(cin, inputStr);
-        
-    vector<int> xulie;
-    
-    for (int i = 0 ; i<inputStr.size(); i++) {
-        if (inputStr[i]=='#') {
-            xulie.push_back(i);
-        }
+    for (int i=0; i<num; i++) {
+        cin>>numberList[i];
     }
     
+    vector<string> strList(num);
+    
+    for(int in:numberList){
+        strList.push_back(to_string(in));
+    };
+    
+    sort(strList.begin(), strList.end(), compare); // compare 函数用途于自定义的排序
+    
     string result;
-    for (int k = 0 ; k<xulie.size(); k+=2) {
-        result += inputStr.substr(xulie[k]+1,xulie[k+1]-xulie[k]-1);
+    
+    for (int j=0; j<strList.size(); j++) {
+        result+=strList[j];
     }
     
     cout<<result;
+    
     return 0;
 }
