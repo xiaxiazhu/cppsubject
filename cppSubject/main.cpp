@@ -10,7 +10,7 @@
 #include <vector>
 #include <algorithm>
 //#include <cmath>
-//#include <climits>
+#include <climits>
 //#include <unordered_map>
 //#include <stack>
 #include <sstream>
@@ -20,52 +20,69 @@
 
 using namespace std;
 
+struct Rectangle{
+    int x1;
+    int y1;
+    int x2;
+    int y2;
+    int top,bottom,left,right;
+    int w;
+    int h;
+};
 
+bool chongDie(Rectangle rect1,Rectangle rect2){
+    
+    if (rect2.y1-rect1.y2>=0||rect2.x2-rect1.x1>=0||rect2.y2<=rect1.y1||rect2.x1<=rect1.x2) {
+        return  false;
+    }
+    
+    return true;
+}
 
 int main(){
-    int n;
-    cin>>n;// 一共有n行
-    // 清除 cin 留下的换行符
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     
-    vector<string> message(n);
+    Rectangle rect1;
+    cin>>rect1.left;cin>>rect1.right;cin>>rect1.top;cin>>rect1.bottom;
     
-    for (int i = 0; i<n; i++) {
-        getline(cin, message[i]);
-    }
+    Rectangle rect2;
+    cin>>rect2.left;cin>>rect2.right;cin>>rect2.top;cin>>rect2.bottom;
     
-    // 开始破解
-    //1，当你发现一个退格符"#"，则表示前一个字符无效；
-    //2，如果发现一个退行符"@"，以表示该行中 “@”前的所有字符均无效。 如果已经在行首'#'符号无效
-    //whli##ilr#e (s#*s)
-    //I am daifu@
-    //   outcha@putchar(*s=#++);
+    //假设窗口很大，w=100000000；h=1000000000；
+    int width = 10000;
+    int height = 10000;
     
-    for (int j = 0; j< n; j++) {
+    rect1.w = width-rect1.left-rect1.right;
+    rect1.h = height-rect1.top-rect1.bottom;
+    rect1.x1 = rect1.top+rect1.h;
+    rect1.y1 = rect1.left;
+    rect1.x2 = rect1.top;
+    rect1.y2 = rect1.left+rect1.w;
+    
+    rect2.w = width-rect2.left-rect2.right;
+    rect2.h = height-rect2.top-rect2.bottom;
+    rect2.x1 = rect2.top+rect2.h;
+    rect2.y1 = rect2.left;
+    rect2.x2 = rect2.top;
+    rect2.y2 = rect2.left+rect2.w;
+    
+    if (chongDie(rect1, rect2)) {
+        // 计算重叠区的w 和h
+        int cw = rect2.h - abs(rect2.x1-rect1.x1);
+        int ch = rect2.w - abs(rect2.y2-rect1.y2);
         
-        for (int k =0; k<message[j].size();k++) {
-            
-//          string test = message[j];
-            if (k==0&&message[j][k]=='#') {
-                message[j].erase(k,1);
-            }
-            
-            while (message[j][k] == '#' && k!= 0) {
-                message[j].erase(k-1,2);
-                k--;
-            }
-            
-            if (message[j][k] == '@' ){
-                message[j].erase(0,k+1);
-            }
-            
-        }
-        message[j]+='\n';
+        cout<<cw*ch;
+        
+    }else{
+        cout<<0;
     }
     
-    for(string line : message){
-        cout<<line;
-    }
+    
+    
+    
+    
+    
+    
+    
     
     return 0;
 }
