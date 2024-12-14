@@ -25,14 +25,11 @@ struct Rectangle{
     int y1;
     int x2;
     int y2;
-    int top,bottom,left,right;
-    int w;
-    int h;
-};
+}; // 取左上角和右下角的坐标
 
 bool chongDie(Rectangle rect1,Rectangle rect2){
     
-    if (rect2.y1-rect1.y2>=0||rect2.x2-rect1.x1>=0||rect2.y2<=rect1.y1||rect2.x1<=rect1.x2) {
+    if (rect1.x1>=rect2.x2 || rect2.y1>=rect1.y2 || rect2.x1>=rect1.x2 || rect2.y2<=rect1.y1) {
         return  false;
     }
     
@@ -42,47 +39,23 @@ bool chongDie(Rectangle rect1,Rectangle rect2){
 int main(){
     
     Rectangle rect1;
-    cin>>rect1.left;cin>>rect1.right;cin>>rect1.top;cin>>rect1.bottom;
+    cin>>rect1.y1;cin>>rect1.y2;cin>>rect1.x1;cin>>rect1.x2;
     
     Rectangle rect2;
-    cin>>rect2.left;cin>>rect2.right;cin>>rect2.top;cin>>rect2.bottom;
+    cin>>rect2.y1;cin>>rect2.y2;cin>>rect2.x1;cin>>rect2.x2;
     
-    //假设窗口很大，w=100000000；h=1000000000；
-    int width = 10000;
-    int height = 10000;
-    
-    rect1.w = width-rect1.left-rect1.right;
-    rect1.h = height-rect1.top-rect1.bottom;
-    rect1.x1 = rect1.top+rect1.h;
-    rect1.y1 = rect1.left;
-    rect1.x2 = rect1.top;
-    rect1.y2 = rect1.left+rect1.w;
-    
-    rect2.w = width-rect2.left-rect2.right;
-    rect2.h = height-rect2.top-rect2.bottom;
-    rect2.x1 = rect2.top+rect2.h;
-    rect2.y1 = rect2.left;
-    rect2.x2 = rect2.top;
-    rect2.y2 = rect2.left+rect2.w;
     
     if (chongDie(rect1, rect2)) {
-        // 计算重叠区的w 和h
-        int cw = rect2.h - abs(rect2.x1-rect1.x1);
-        int ch = rect2.w - abs(rect2.y2-rect1.y2);
+        // 计算重叠区的w 和h// 多个长方形重叠可以通过区间数来快速判断是否重叠。
         
-        cout<<cw*ch;
+        int overlapH = max(0, min(rect2.x2,rect1.x2)-max(rect1.x1, rect2.x1));
+        int overlapW = max(0,min(rect2.y2,rect1.y2)-max(rect1.y1,rect2.y1));
+        
+        cout<< overlapH*overlapW;
         
     }else{
         cout<<0;
     }
-    
-    
-    
-    
-    
-    
-    
-    
     
     return 0;
 }
