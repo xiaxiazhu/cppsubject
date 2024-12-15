@@ -20,42 +20,51 @@
 
 using namespace std;
 
-struct Rectangle{
-    int x1;
-    int y1;
-    int x2;
-    int y2;
-}; // 取左上角和右下角的坐标
+struct Person{
+    string name;
+    int ageYear;
+    int ageMonth;
+    int ageDay;
+};
 
-bool chongDie(Rectangle rect1,Rectangle rect2){
+bool compare(const Person &a,const Person &b){
     
-    if (rect1.x1>=rect2.x2 || rect2.y1>=rect1.y2 || rect2.x1>=rect1.x2 || rect2.y2<=rect1.y1) {
-        return  false;
+    if (a.ageYear == b.ageYear) {
+        
+        if (a.ageMonth == b.ageMonth) {
+
+            if(a.ageDay==b.ageDay){
+                return true;
+            }else{
+                return a.ageDay<b.ageDay;
+            }
+        }else{
+            return a.ageMonth < b.ageMonth;
+        }
+    }else{
+        return a.ageYear < b.ageYear;
     }
-    
-    return true;
 }
 
 int main(){
+    int n;
+    cin>>n;
     
-    Rectangle rect1;
-    cin>>rect1.y1;cin>>rect1.y2;cin>>rect1.x1;cin>>rect1.x2;
+    vector<Person> persons(n);
     
-    Rectangle rect2;
-    cin>>rect2.y1;cin>>rect2.y2;cin>>rect2.x1;cin>>rect2.x2;
-    
-    
-    if (chongDie(rect1, rect2)) {
-        // 计算重叠区的w 和h// 多个长方形重叠可以通过区间数来快速判断是否重叠。
-        
-        int overlapH = max(0, min(rect2.x2,rect1.x2)-max(rect1.x1, rect2.x1));
-        int overlapW = max(0,min(rect2.y2,rect1.y2)-max(rect1.y1,rect2.y1));
-        
-        cout<< overlapH*overlapW;
-        
-    }else{
-        cout<<0;
+    for (int i=0; i<n; i++) {
+        cin>>persons[i].name;
+        cin>>persons[i].ageYear;
+        cin>>persons[i].ageMonth;
+        cin>>persons[i].ageDay;
     }
     
-    return 0;
+    // out put by order
+    sort(persons.begin(), persons.end(), compare);
+    
+    for (int j = 0 ; j<n; j++) {
+        
+        cout<<persons[j].name << "\n";
+    }
+    
 }
