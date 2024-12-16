@@ -34,11 +34,16 @@ bool compare(const Person &a,const Person &b){
         if (a.ageMonth == b.ageMonth) {
 
             if(a.ageDay==b.ageDay){
+                
                 return true;
+            
             }else{
+                
                 return a.ageDay<b.ageDay;
             }
+            
         }else{
+            
             return a.ageMonth < b.ageMonth;
         }
     }else{
