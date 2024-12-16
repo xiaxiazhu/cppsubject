@@ -21,55 +21,58 @@
 using namespace std;
 
 struct Person{
-    string name;
-    int ageYear;
-    int ageMonth;
-    int ageDay;
+    int totle;
+    int id;
+    int yuwen;
+    int math;
+    int english;
 };
 
-bool compare(const Person &a,const Person &b){
+bool compare(Person &a,Person&b){
     
-    if (a.ageYear == b.ageYear) {
+    if (a.totle==b.totle) {
         
-        if (a.ageMonth == b.ageMonth) {
-
-            if(a.ageDay==b.ageDay){
-                
-                return true;
+        if (a.yuwen==b.yuwen) {
             
-            }else{
-                
-                return a.ageDay<b.ageDay;
-            }
+            return a.id<b.id;
             
         }else{
+            return a.yuwen>b.yuwen;
             
-            return a.ageMonth < b.ageMonth;
         }
+        
     }else{
-        return a.ageYear < b.ageYear;
+        return a.totle>b.totle;
     }
 }
 
 int main(){
+    
     int n;
     cin>>n;
     
-    vector<Person> persons(n);
+    vector<Person> pList(n);
     
-    for (int i=0; i<n; i++) {
-        cin>>persons[i].name;
-        cin>>persons[i].ageYear;
-        cin>>persons[i].ageMonth;
-        cin>>persons[i].ageDay;
-    }
-    
-    // out put by order
-    sort(persons.begin(), persons.end(), compare);
-    
-    for (int j = 0 ; j<n; j++) {
+    for (int i =0; i<n; i++) {
         
-        cout<<persons[j].name << "\n";
+        cin>>pList[i].yuwen;
+        cin>>pList[i].math;
+        cin>>pList[i].english;
+        
+        pList[i].totle = pList[i].yuwen+pList[i].math+pList[i].english;
+        pList[i].id = i+1;
     }
+    
+    sort(pList.begin(), pList.end(), compare);
+    
+    vector<Person> output(5);
+    
+    for (int j =0 ; j<5; j++) {
+        output[j]=pList[j];
+    }
+    
+    for(auto p:output){
+        cout << p.id <<" "<<p.totle<<"\n";
+    };
     
 }
