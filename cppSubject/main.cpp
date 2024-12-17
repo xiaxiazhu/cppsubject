@@ -9,70 +9,50 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-//#include <cmath>
-#include <climits>
+////#include <cmath>
+//#include <climits>
+////#include <unordered_map>
+////#include <stack>
+//#include <sstream>
+//#include <algorithm>
+//#include <cctype>
 //#include <unordered_map>
-//#include <stack>
-#include <sstream>
-#include <algorithm>
-#include <cctype>
-#include <unordered_map>
+#include <list>
+#include <iterator>
 
 using namespace std;
 
-struct Person{
-    int totle;
-    int id;
-    int yuwen;
-    int math;
-    int english;
-};
-
-bool compare(Person &a,Person&b){
-    
-    if (a.totle==b.totle) {
-        
-        if (a.yuwen==b.yuwen) {
-            
-            return a.id<b.id;
-            
-        }else{
-            return a.yuwen>b.yuwen;
-            
-        }
-        
-    }else{
-        return a.totle>b.totle;
-    }
-}
-
 int main(){
+    int n,m;
+    cin>>n>>m;
     
-    int n;
-    cin>>n;
-    
-    vector<Person> pList(n);
-    
-    for (int i =0; i<n; i++) {
-        
-        cin>>pList[i].yuwen;
-        cin>>pList[i].math;
-        cin>>pList[i].english;
-        
-        pList[i].totle = pList[i].yuwen+pList[i].math+pList[i].english;
-        pList[i].id = i+1;
+    // init list
+    list<int> circle;
+    for (int i=1; i<=n; ++i) {
+        circle.push_back(i);
     }
     
-    sort(pList.begin(), pList.end(), compare);
     
-    vector<Person> output(5);
+    auto it = circle.begin();
+
+//    cout<< *it<<endl;
     
-    for (int j =0 ; j<5; j++) {
-        output[j]=pList[j];
+    while (circle.size()>0) {
+        
+        for (int j=0; j<m-1; j++) {
+            it++;
+                if (it == circle.end() ) {
+                    it = circle.begin();
+                }
+        }
+        cout<< *it <<" ";
+        
+        it = circle.erase(it);
+
+        if (it == circle.end()) {
+            it = circle.begin();
+        }
+
+        
     }
-    
-    for(auto p:output){
-        cout << p.id <<" "<<p.totle<<"\n";
-    };
-    
 }
