@@ -22,37 +22,57 @@
 
 using namespace std;
 
+struct Person{
+    string name;
+    int y;
+    int m;
+    int d;
+};
+
+bool compare(Person a, Person b){
+    if (a.y<b.y) {
+        return true;
+    }else if(a.y==b.y){
+        if (a.m < b.m) {
+            return true;
+        }else if(a.m==b.m){
+            if (a.d<b.d) {
+                return true;
+            }else if(a.d==b.d){
+                return false;
+            }else{
+                return false;
+            }
+            
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+};
+
 int main(){
-    int n,m;
-    cin>>n>>m;
+    int n;
+    cin>>n;
     
-    // init list
-    list<int> circle;
-    for (int i=1; i<=n; ++i) {
-        circle.push_back(i);
+    vector<Person> pList(n);
+    
+    for (int i=0; i<n; i++) {
+        cin>>pList[i].name;
+        cin>>pList[i].y;
+        cin>>pList[i].m;
+        cin>>pList[i].d;
     }
     
+    sort(pList.begin(), pList.end(), compare);
     
-    auto it = circle.begin();
-
-//    cout<< *it<<endl;
-    
-    while (circle.size()>0) {
-        
-        for (int j=0; j<m-1; j++) {
-            it++;
-                if (it == circle.end() ) {
-                    it = circle.begin();
-                }
-        }
-        cout<< *it <<" ";
-        
-        it = circle.erase(it);
-
-        if (it == circle.end()) {
-            it = circle.begin();
-        }
-
-        
+    for (Person p :pList)
+    {
+        cout<< p.name <<"\n";
     }
+    
+    return 1;
 }
+
+
