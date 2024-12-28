@@ -22,57 +22,49 @@
 
 using namespace std;
 
-struct Person{
-    string name;
-    int y;
-    int m;
-    int d;
+struct Time{
+    int hi;
+    int mi;
+};
+Time timeFormat(Time t){
+    Time r;
+    if (t.mi>=60) {
+        r.mi = t.mi%60;
+        r.hi = t.hi+ t.mi/60;
+    }else{
+        return t;
+    }
+    return r;
 };
 
-bool compare(Person a, Person b){
-    if (a.y<b.y) {
-        return true;
-    }else if(a.y==b.y){
-        if (a.m < b.m) {
-            return true;
-        }else if(a.m==b.m){
-            if (a.d<b.d) {
-                return true;
-            }else if(a.d==b.d){
-                return false;
-            }else{
-                return false;
-            }
-            
-        }else{
-            return false;
-        }
-    }else{
-        return false;
-    }
+Time addTime(const Time &a,const Time &b){
+    Time result ;
+    result.hi = a.hi + b.hi;
+    result.mi = a.mi + b.mi;
+    return result;
 };
 
 int main(){
     int n;
     cin>>n;
     
-    vector<Person> pList(n);
+    vector<Time> tList(n);
     
-    for (int i=0; i<n; i++) {
-        cin>>pList[i].name;
-        cin>>pList[i].y;
-        cin>>pList[i].m;
-        cin>>pList[i].d;
+    for (int i = 0 ; i < n; i++) {
+        cin >> tList[i].hi;
+        cin >> tList[i].mi;
     }
     
-    sort(pList.begin(), pList.end(), compare);
+    Time result{0,0};
     
-    for (Person p :pList)
-    {
-        cout<< p.name <<"\n";
+    for (int j =0; j<n; j++) {
+        result = addTime( result , tList[j]);
     }
+    
+    result = timeFormat(result);
+    
+    cout<< result.hi<<" "<<result.mi<<"\n";
     
     return 1;
 }
-
 
