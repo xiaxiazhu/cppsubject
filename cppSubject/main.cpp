@@ -48,6 +48,7 @@ int main(){
     int n;
     cin>>n;
     
+    
     vector<Time> tList(n);
     
     for (int i = 0 ; i < n; i++) {
