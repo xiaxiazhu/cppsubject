@@ -8,11 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		F814BBEE2D201044005CEA40 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814BBED2D201044005CEA40 /* main.cpp */; };
+		F814BBFA2D2016C1005CEA40 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F814BBF92D2016C1005CEA40 /* main.cpp */; };
 		F8E50E582CE4A026002468A1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F8E50E572CE4A026002468A1 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		F814BBE92D201043005CEA40 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		F814BBF52D2016C1005CEA40 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -35,12 +45,21 @@
 /* Begin PBXFileReference section */
 		F814BBEB2D201043005CEA40 /* main1 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = main1; sourceTree = BUILT_PRODUCTS_DIR; };
 		F814BBED2D201044005CEA40 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		F814BBF72D2016C1005CEA40 /* main2 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = main2; sourceTree = BUILT_PRODUCTS_DIR; };
+		F814BBF92D2016C1005CEA40 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F8E50E572CE4A026002468A1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		F8FA46F82CDF750200E796C1 /* cppSubject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cppSubject; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F814BBE82D201043005CEA40 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F814BBF42D2016C1005CEA40 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -65,11 +84,20 @@
 			path = main1;
 			sourceTree = "<group>";
 		};
+		F814BBF82D2016C1005CEA40 /* main2 */ = {
+			isa = PBXGroup;
+			children = (
+				F814BBF92D2016C1005CEA40 /* main.cpp */,
+			);
+			path = main2;
+			sourceTree = "<group>";
+		};
 		F8FA46EF2CDF750200E796C1 = {
 			isa = PBXGroup;
 			children = (
 				F8FA46FA2CDF750200E796C1 /* cppSubject */,
 				F814BBEC2D201044005CEA40 /* main1 */,
+				F814BBF82D2016C1005CEA40 /* main2 */,
 				F8FA46F92CDF750200E796C1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +107,7 @@
 			children = (
 				F8FA46F82CDF750200E796C1 /* cppSubject */,
 				F814BBEB2D201043005CEA40 /* main1 */,
+				F814BBF72D2016C1005CEA40 /* main2 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -119,6 +148,23 @@
 			productReference = F814BBEB2D201043005CEA40 /* main1 */;
 			productType = "com.apple.product-type.tool";
 		};
+		F814BBF62D2016C1005CEA40 /* main2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F814BBFB2D2016C1005CEA40 /* Build configuration list for PBXNativeTarget "main2" */;
+			buildPhases = (
+				F814BBF32D2016C1005CEA40 /* Sources */,
+				F814BBF42D2016C1005CEA40 /* Frameworks */,
+				F814BBF52D2016C1005CEA40 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = main2;
+			productName = main2;
+			productReference = F814BBF72D2016C1005CEA40 /* main2 */;
+			productType = "com.apple.product-type.tool";
+		};
 		F8FA46F72CDF750200E796C1 /* cppSubject */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8FA46FF2CDF750200E796C1 /* Build configuration list for PBXNativeTarget "cppSubject" */;
@@ -148,6 +194,9 @@
 					F814BBEA2D201043005CEA40 = {
 						CreatedOnToolsVersion = 13.3;
 					};
+					F814BBF62D2016C1005CEA40 = {
+						CreatedOnToolsVersion = 13.3;
+					};
 					F8FA46F72CDF750200E796C1 = {
 						CreatedOnToolsVersion = 13.3;
 					};
@@ -168,6 +217,7 @@
 			targets = (
 				F8FA46F72CDF750200E796C1 /* cppSubject */,
 				F814BBEA2D201043005CEA40 /* main1 */,
+				F814BBF62D2016C1005CEA40 /* main2 */,
 			);
 		};
 /* End PBXProject section */
@@ -178,6 +228,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F814BBEE2D201044005CEA40 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F814BBF32D2016C1005CEA40 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F814BBFA2D2016C1005CEA40 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +261,26 @@
 			name = Debug;
 		};
 		F814BBF02D201044005CEA40 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5C2DGSGVE;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		F814BBFC2D2016C1005CEA40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5C2DGSGVE;
+				ENABLE_HARDENED_RUNTIME = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F814BBFD2D2016C1005CEA40 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
@@ -349,6 +427,15 @@
 			buildConfigurations = (
 				F814BBEF2D201044005CEA40 /* Debug */,
 				F814BBF02D201044005CEA40 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F814BBFB2D2016C1005CEA40 /* Build configuration list for PBXNativeTarget "main2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F814BBFC2D2016C1005CEA40 /* Debug */,
+				F814BBFD2D2016C1005CEA40 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
