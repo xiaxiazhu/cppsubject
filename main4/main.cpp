@@ -21,9 +21,15 @@ int main(int argc, const char * argv[]) {
         cin >> *(arrPoint+i);
     }
     
-    for (int j=n-1; j>=0; j--) {
-        cout<< *(arrPoint+j)<<" ";
+//    for (int j=n-1; j>=0; j--) {
+//        cout<< *(arrPoint+j)<<" ";
+//    }
+    
+    for (int k=0; k<n; k++) {
+        cout<< *(arrPoint+k)<<" ";
     }
+    
+    delete arrPoint;
     
     return 0;
 }

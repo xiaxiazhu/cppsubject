@@ -42,6 +42,7 @@ int main() {
     for (int a=0; a<n; a++) {
         cout<<arr[a]<<" ";
     }
+    delete arr;
     
     return 0;
 }
