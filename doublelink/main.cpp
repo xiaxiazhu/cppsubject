@@ -45,10 +45,45 @@ public:
         }
     }
     
+    void deleteElment(int data){
+        // search value
+        if (!head&&!tail) return;
+        
+        Node * current = head;
+        while (current!=nullptr) {
+            if (current->data == data) {
+                break;
+            }
+            current=current->next;
+        }
+        
+        // delete node
+        // head or tail
+        if (current->next==nullptr ) {
+            // tail
+            delete current;
+        }
+        if(current->prev==nullptr){
+            // head
+            delete current;
+        }
+        // middle
+        
+        Node* cprev= current->prev;
+        Node* cnext = current->next;
+        
+        cnext->prev = cprev;
+        cprev->next = cnext;
+        
+        delete current;
+    }
+    
     void insert(int data){
         
         Node * insertNode = new Node(data);
         // 顺序遍历寻找合适的位置
+        
+        bool shengxu = true;
         
         if (!head) {
             head=tail=insertNode;
@@ -58,22 +93,34 @@ public:
             
             while( current != nullptr ){
                 
+                if (current->next == nullptr ) {
+                    if (current->data >data) {
+                        shengxu?prepend(data) :append(data);
+                    }else{
+                        shengxu?append(data):prepend(data);
+                    }
+                    break;
+                }
+                
                 if (current->next != nullptr) {
                     
                     Node * cNext = current->next;
                     
-                    if ( (current->data >= insertNode->data
-                        && insertNode->data >= cNext->data)
-                        ||(current->data <=insertNode->data
-                        && insertNode->data <= cNext->data)) {
-                        
+                    bool condition;
+                    if (!shengxu) {
+                        condition =(current->data >= insertNode->data && insertNode->data >= cNext->data);
+                    }else{
+                        condition =(current->data <=insertNode->data && insertNode->data <= cNext->data);
+                    }
+                    
+                    if (condition)
+                    {
                         insertNode->next=cNext;
                         insertNode->prev=current;
                         current->next=insertNode;
                         cNext->prev = insertNode;
                         break;
                     }
-                    
                     current=current->next;
                 }
             }
@@ -110,8 +157,9 @@ int main(int argc, const char * argv[]) {
     
     DoubleLink list;
     
-    int n;
+    int n,x;
     cin>>n;
+    cin>>x;
     
     for (int i =0; i<n; i++) {
         int a;
@@ -119,10 +167,13 @@ int main(int argc, const char * argv[]) {
         list.append(a);
     }
     
-    int iValue;
-    cin>>iValue;
+    list.deleteElment(x);
     
-    list.insert(iValue);
+    
+//    int iValue;
+//    cin>>iValue;
+    
+//    list.insert(iValue);
     
     list.printForward();
     //    list.printBackward();
