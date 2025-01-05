@@ -45,6 +45,59 @@ public:
         }
     }
     
+    void showSubLine(int x ){
+        if ( head && tail ) {
+            Node*current = tail;
+            
+            int index = 1;
+            while (current!= nullptr) {
+                if (index == x) {
+                    break;
+                }
+                current=current->prev;
+                index++;
+            }
+            // 遍历剩余部分
+            
+            while (current!=nullptr) {
+                cout<<current->data<<" ";
+                current=current->next;
+            }
+        }
+    }
+    
+    void deleteElementByIndex(int x){
+        if (head) {
+            Node*current = head;
+            
+            int index = 1;
+            while (current!=nullptr) {
+                if (index == x) {
+                    // delete
+                    // head or tail
+                    if (current->next==nullptr || current->prev==nullptr) {
+                        //delete
+                        delete current;
+                    }else{
+                        Node * cPrev = current->prev;
+                        Node * cNext = current -> next;
+                        
+                        cPrev -> next = cNext;
+                        cNext-> prev = cPrev;
+                        
+                        delete current;
+                        break;
+                    }
+                    
+                }else{
+                    current = current->next;
+                    index++;
+                }
+            }
+        }
+        // 否则不处理
+    }
+    
     void deleteElment(int data){
         // search value
         if (!head&&!tail) return;
@@ -150,6 +203,35 @@ public:
         delete current;
     }
     
+    bool huiWenShu(){
+        
+        int index = 1;
+        
+        if ( head && tail ) {
+            Node* cHead = head;
+            Node* cTail = tail;
+            string _cHead,_cTail;
+            
+            while (cHead!=nullptr&&cTail!=nullptr) {
+                
+                _cHead += cHead->data;
+                _cTail += cTail->data;
+                
+                cHead=cHead->next;
+                cTail=cTail->prev;
+                
+                index++;
+            }
+            
+            if (_cHead==_cTail) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return false;
+    }
+    
 };
 
 
@@ -157,9 +239,8 @@ int main(int argc, const char * argv[]) {
     
     DoubleLink list;
     
-    int n,x;
+    int n;
     cin>>n;
-    cin>>x;
     
     for (int i =0; i<n; i++) {
         int a;
@@ -167,7 +248,15 @@ int main(int argc, const char * argv[]) {
         list.append(a);
     }
     
-    list.deleteElment(x);
+    if (list.huiWenShu()) {
+        cout<<"true";
+    }else{
+        cout<<"false";
+    }
+    
+//    list.deleteElment(x);
+    
+//    list.showSubLine(x);
     
     
 //    int iValue;
@@ -175,8 +264,8 @@ int main(int argc, const char * argv[]) {
     
 //    list.insert(iValue);
     
-    list.printForward();
-    //    list.printBackward();
+//    list.printForward();
+//      list.printBackward();
     
     return 0;
 }
